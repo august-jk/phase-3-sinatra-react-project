@@ -1,22 +1,25 @@
 require 'faker'
-puts "🌱 Seeding spices..."
+puts "🌱 Seeding..."
 
 # Seed your database here
-15.times do
-    # create a game with random data
-    Game.create(
-      title: Faker::Game.title,
-      genre: Faker::Game.genre,
-      platform: Faker::Game.platform,
-      price: rand(0..60) # random number between 0 and 60
+30.times do
+  # create a game with random data
+  game = Game.create(
+    title: Faker::Game.title,
+    genre: Faker::Game.genre,
+    platform: Faker::Game.platform,
+    price: rand(0..60) # random number between 0 and 60
+  )
+
+  # create between 1 and 5 reviews for each game
+  rand(1..5).times do
+    Review.create(
+      name: Faker::Name.name
+      score: rand(1..10),
+      comment: Faker::Lorem.sentence,
+      game_id: game.id # use the ID (primary key) of the game as the foreign key
     )
   end
-
-30.times do 
-    Review.create(
-        name: Faker::Review.name,
-        score: rand(0..10),
-        comment: Faker::Lorem.sentences(number: 1..3)
-    )
+end
 
 puts "✅ Done seeding!"
