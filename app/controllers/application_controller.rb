@@ -8,17 +8,17 @@ class ApplicationController < Sinatra::Base
 
   get "/games" do
     games = Game.all
-    games.to_json(only: [:title, :genre, :platform, :price], include: :reviews)
-  end
-
-  get "/games/:id" do
-    game = Game.find(params[:id])
-    game.to_json(only: [:title, :genre, :platform, :price], include: :reviews)
+    games.to_json(include: :reviews)
   end
 
   get "/games/:id/reviews" do
     game = Game.find(params[:id])
-    reviews = game.reviews.all
+    reviews = game.reviews
+    reviews.to_json
+  end
+
+  get "/reviews" do
+    reviews = Review.all
     reviews.to_json
   end
 
