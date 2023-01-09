@@ -2,7 +2,7 @@ require 'faker'
 puts "🌱 Seeding..."
 
 # Seed your database here
-30.times do
+15.times do
   # create a game with random data
   game = Game.create(
     title: Faker::Game.title,
